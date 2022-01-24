@@ -231,6 +231,8 @@ def _degree_day_columns(
     if degree_day_method == "daily":
 
         def _compute_columns(temps):
+            # fork fix, added
+            temps = temps[:24]  # to avoid working with 25-hour days altogether.
             count = temps.shape[0]
             if count > 24:
 
@@ -497,7 +499,8 @@ def compute_temperature_features(
 
         if data_quality:
             temp_agg_funcs.extend(
-                [("not_null", "count"), ("null", lambda x: x.isnull().sum())]
+                # fork fix, orig: [("not_null", "count"), ("null", lambda x: x.isnull().sum())]
+                [("not_null", "count"), ("null", lambda x: x.apply(lambda z: z.isna()).sum())]
             )
             temp_agg_column_renames.update(
                 {

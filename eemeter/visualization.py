@@ -59,7 +59,7 @@ def plot_time_series(meter_data, temperature_data, **kwargs):
     fig, ax1 = plt.subplots(**default_kwargs)
 
     ax1.plot(
-        meter_data.index,
+        # fork fix, commented out, orig: meter_data.index,
         meter_data.value,
         color="C0",
         label="Energy Use",
@@ -69,7 +69,7 @@ def plot_time_series(meter_data, temperature_data, **kwargs):
 
     ax2 = ax1.twinx()
     ax2.plot(
-        temperature_data.index,
+        # fork fix, commented out, orig: temperature_data.index,
         temperature_data,
         color="C1",
         label="Temperature",

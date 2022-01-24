@@ -293,7 +293,8 @@ def get_baseline_data(
     start_inf = False
     if start is None:
         # py datetime min/max are out of range of pd.Timestamp min/max
-        start_target = pytz.UTC.localize(pd.Timestamp.min) + timedelta(days=1)
+        # fork fix, orig: start_target = pytz.UTC.localize(pd.Timestamp.min) + timedelta(days=1)
+        start_target = pytz.UTC.localize(datetime.fromtimestamp(0)) + timedelta(days=1)
         start_inf = True
     else:
         start_target = start
